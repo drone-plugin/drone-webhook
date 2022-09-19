@@ -9,4 +9,4 @@ ENV GODEBUG netdns=go
 COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 ADD drone-webhook /bin/
-ENTRYPOINT ["/bin/drone-webhook"]
+ENTRYPOINT /bin/drone-webhook
