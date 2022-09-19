@@ -1,6 +1,6 @@
 module github.com/foo/bar
 
-go 1.12
+go 1.19
 
 require (
 	github.com/drone/drone-go v1.0.6
