@@ -56,35 +56,60 @@ func sendCard(status string, repoName string, repoLink string, commit string, bu
 	contentType := "application/json"
 	currentTime := time.Now().Unix()
 	sign, _ := GenSign(secret, currentTime)
-	sendData := `{
+	sendData := `
+{
 	"timestamp": ` + strconv.FormatInt(currentTime, 10) + `,
 	"sign": "` + sign + `",
-	"msg_type": "interactive",
+    "msg_type":"interactive",
     "card":{
         "config":{
             "wide_screen_mode":true
         },
         "elements":[
             {
-                "tag":"hr"
+                "tag":"div",
+                "fields":[
+                    {
+                        "is_short":true,
+                        "text":{
+                            "tag":"lark_md",
+                            "content":"**🗳RepoName：**\n[` + repoName + `](` + repoLink + `)"
+                        }
+                    },
+                    {
+                        "is_short":true,
+                        "text":{
+                            "tag":"lark_md",
+                            "content":"**📝Status：**\n` + status + `"
+                        }
+                    }
+                ]
             },
             {
-                "tag":"div",
-                "text":{
-                    "content":"👏️ [commit](` + commit + `)\n⚒️ [drone](` + baseUrl + build + `)",
-                    "tag":"lark_md"
-                }
+                "tag":"action",
+                "actions":[
+                    {
+                        "tag":"button",
+                        "text":{
+                            "tag":"lark_md",
+                            "content":"[drone](` + baseUrl + build + `)"
+                        },
+                        "type":"primary"
+                    },
+                    {
+                        "tag":"button",
+                        "text":{
+                            "tag":"lark_md",
+                            "content":"[commit](` + commit + `)"
+                        },
+                        "type":"default"
+                    }
+                ]
             }
-        ],
-        "header":{
-            "template":"blue",
-            "title":{
-                "content":"[` + repoName + `](` + repoLink + `)` + status +` in drone",
-                "tag":"plain_text"
-            }
-        }
+        ]
     }
-}`
+}
+`
 	resp, err := http.Post(webhookUrl, contentType, strings.NewReader(sendData))
 	if err != nil {
 		panic(err)
