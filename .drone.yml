@@ -4,8 +4,9 @@ name: default
 
 steps:
 - name: build
-  image: golang
+  image: golang:1.19.0-alpine3.16
   commands:
+  - go env -w GOPROXY=https://goproxy.cn,direct
   - go build
   - go test ./...
 
