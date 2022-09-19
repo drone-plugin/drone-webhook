@@ -1,12 +1,6 @@
-FROM alpine:3.6 as alpine
-RUN apk add -U --no-cache ca-certificates
-
-FROM alpine:3.6
+FROM alpine:latest
 EXPOSE 3000
 
-ENV GODEBUG netdns=go
-
-COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
-
-ADD drone-webhook /bin/
+ADD  webhook /bin/
+RUN apk -Uuv add ca-certificates
 ENTRYPOINT /bin/drone-webhook
