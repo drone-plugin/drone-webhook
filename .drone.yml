@@ -8,7 +8,6 @@ steps:
   commands:
   - go env -w GOPROXY=https://goproxy.cn,direct
   - go build
-  - go test ./...
 
 - name: publish
   image: plugins/docker
