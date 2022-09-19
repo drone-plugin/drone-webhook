@@ -9,12 +9,25 @@ steps:
   - go env -w GOPROXY=https://goproxy.cn,direct
   - GOOS=linux GOARCH=amd64 go build -o webhook
 
+
 - name: publish
+  depends_on: [ build ]
   image: plugins/docker
+  pull: if-not-exists
   settings:
-    auto_tag: true
-    repo: ootd/dsa
+    registry: registry.cn-shanghai.aliyuncs.com
     username:
       from_secret: docker_username
     password:
       from_secret: docker_password
+    repo: registry.cn-shanghai.aliyuncs.com/zzf2001/drone-webhook
+    tags: latest
+# - name: publish
+#   image: plugins/docker
+#   settings:
+#     auto_tag: true
+#     repo: ootd/dsa
+#     username:
+#       from_secret: docker_username
+#     password:
+#       from_secret: docker_password
