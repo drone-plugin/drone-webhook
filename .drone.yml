@@ -7,7 +7,7 @@ steps:
   image: golang:1.19.1
   commands:
   - go env -w GOPROXY=https://goproxy.cn,direct
-  - GOOS=linux GOARCH=amd64 go build -o webhook
+  - GOOS=linux GOARCH=amd64 go build -o drone-webhook
   - ls
 
 
