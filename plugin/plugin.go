@@ -71,7 +71,7 @@ func sendCard(status string, repoName string, repoLink string, commit string, bu
             {
                 "tag":"div",
                 "text":{
-                    "content":"👋 ` + status + ` \n⚒️️ [` + repoName + `](` + repoLink + `)\n👏️ [commit](` + commit + `)\n⚒️ [drone](` + baseUrl + build + `)",
+                    "content":"👏️ [commit](` + commit + `)\n⚒️ [drone](` + baseUrl + build + `)",
                     "tag":"lark_md"
                 }
             }
@@ -79,7 +79,7 @@ func sendCard(status string, repoName string, repoLink string, commit string, bu
         "header":{
             "template":"blue",
             "title":{
-                "content":"drone构建通知",
+                "content":"[` + repoName + `](` + repoLink + `)` + status +` in drone",
                 "tag":"plain_text"
             }
         }
